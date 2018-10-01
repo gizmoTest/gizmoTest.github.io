@@ -22,48 +22,39 @@
             //            childWindow.close();
 
 
-            var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
-            var url = "http://localhost:8001/StarWebPRNT/SendMessage";
-            var papertype = "normal";
+//            var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
+
 
             var builder = new StarWebPrintBuilder();
 
             var request = '';
 
             request += builder.createInitializationElement();
+            
+            request += builder.createTextElement({characterspace:0});
 
             request += builder.createAlignmentElement({
                 position: 'left'
             });
             request += builder.createTextElement({
-                characterspace: 0,
-                linespace: 32,
-                codepage: 'utf8',
-                international: 'usa',
-                font: 'font_a',
-                width: 1,
-                height: 1,
-                emphasis: false,
-                underline: false,
-                invert: false,
-                binary: false,
                 data: 'Star Micronics\n'
             });
-            request += builder.createCutPaperElement({
-                feed: true,
-                type: 'partial'
-            });
-
+            request += builder.createCutPaperElement({feed: true});
+            
+            var url = "http://localhost:8001/StarWebPRNT/SendMessage";
+            var papertype = "normal";
             var trader = new StarWebPrintTrader({
                 url: url,
                 papertype: papertype
             });
+            
             trader.onReceive = function(response) {
                 alert(response.responseText);
             }
             trader.onError = function(response) {
                 alert(response.responseText);
             }
+            console.log(request);
             trader.sendMessage({
                 request: request
             });
