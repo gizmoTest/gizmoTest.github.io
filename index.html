@@ -39,6 +39,10 @@
             request += builder.createCutPaperElement({feed:true, type:'partial'});
 
             var trader = new StarWebPrintTrader({url:url, papertype:papertype});
+            trader.onReceive = function (response) { alert(response.responseText); }
+            trader.onError = function (response) { alert(response.responseText); }
+            trader.sendMessage({request:request});
+
             
         }
 
