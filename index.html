@@ -7,15 +7,41 @@
     <title>Tell Your Story</title>
     <script type="text/javascript">
         function printTextArea() {
-            childWindow = window.open('', 'childWindow', 'location=yes, menubar=no, toolbar=no');
-            childWindow.document.open();
-            childWindow.document.write('<html><head></head><body style="font-family:Courier;font-size: 18px;">');
-            childWindow.document.write(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
-            childWindow.document.write('</body></html>');
-            childWindow.print();
-            childWindow.document.close();
-            childWindow.close();
+//            childWindow = window.open('', 'childWindow', 'location=yes, menubar=no, toolbar=no');
+//            childWindow.document.open();
+//            childWindow.document.write('<html><head></head><body style="font-family:Courier;font-size: 18px;">');
+//            childWindow.document.write(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
+//            childWindow.document.write('</body></html>');
+//            childWindow.print();
+//            childWindow.document.close();
+//            childWindow.close();
+
+            
+            var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
+            var url = "https://gizmotest.github.io/";
+            var papertype ="normal";
+
+            var builder = new StarWebPrintBuilder();
+            request += builder.createAlignmentElement({position:'left'});
+            request += builder.createTextElement({characterspace:0,
+                                                  linespace:32,
+                                                  codepage:'utf8',
+                                                  international:'usa',
+                                                  font:'Courier',
+                                                  width:1,
+                                                  height:1,
+                                                  emphasis:false,
+                                                  underline:false,
+                                                  invert:false,
+                                                  binary:false,
+                                                  data:textArea
+                                                 });
+            request += builder.createCutPaperElement({feed:true, type:'partial'});
+
+            var trader = new StarWebPrintTrader({url:url, papertype:papertype});
+            
         }
+
     </script>
     <meta name="typewriter" content="An interactive exhibit for the Jack London Museum">
     <link rel="stylesheet" href="main.css">
