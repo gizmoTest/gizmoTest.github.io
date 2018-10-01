@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tell Your Story</title>
+    <script type="text/javascript">
+        function printTextArea() {
+            childWindow = window.open('', 'childWindow', 'location=yes, menubar=no, toolbar=no');
+            childWindow.document.open();
+            childWindow.document.write('<html><head></head><body style="font-family:Courier;font-size: 18px;">');
+            childWindow.document.write(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
+            childWindow.document.write('</body></html>');
+            childWindow.print();
+            childWindow.document.close();
+            childWindow.close();
+        }
+    </script>
+    <meta name="typewriter" content="An interactive exhibit for the Jack London Museum">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+    <h1 align="center">What's Your Story?</h1>
+
+    <div class="myelement1">
+
+        <textarea maxlength="250" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
+        <input type="submit" onclick="printTextArea()" value="Print Text" />
+
+    </div>
+
+</body>
