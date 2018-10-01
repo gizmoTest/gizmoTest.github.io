@@ -22,6 +22,11 @@
             var papertype ="normal";
 
             var builder = new StarWebPrintBuilder();
+            
+            var request = '';
+
+            request += builder.createInitializationElement();
+            
             request += builder.createAlignmentElement({position:'left'});
             request += builder.createTextElement({characterspace:0, linespace:32, codepage:'utf8', international:'usa', font:'font_a', width:1, height:1, emphasis:false, underline:false, invert:false, binary:false, data:'Star Micronics\n'});
             request += builder.createCutPaperElement({feed:true, type:'partial'});
