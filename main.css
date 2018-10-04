@@ -17,7 +17,7 @@ textarea[type=text],
 select {
     outline: none;
     width: 70%;
-    height: 700px;
+    height: 600px;
     padding: 12px 20px;
 /*    margin: 8px 0;*/
     margin-left: auto;
