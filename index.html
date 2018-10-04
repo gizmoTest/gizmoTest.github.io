@@ -39,7 +39,9 @@
             request += builder.createInitializationElement();
 
             request += builder.createTextElement({
-                characterspace: 0
+                characterspace: 0,
+                width: 2,
+                height: 2
             });
 
             request += builder.createAlignmentElement({
@@ -69,6 +71,7 @@
             trader.sendMessage({
                 request: request
             });
+            document.getElementById("targetTextArea").value = "";
 
 //            setTimeout(location.reload(), 4000);
             
