@@ -27,7 +27,7 @@
 
             var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
 
-//            var cleanTextArea = textArea.replace(/<br>/g, "n\\");
+            var cleanTextArea = textArea.replace(/<br>/g, "\\n");
             
             console.log(cleanTextArea);
 
@@ -46,7 +46,7 @@
                 position: 'left'
             });
             request += builder.createTextElement({
-                data: textArea
+                data: cleanTextArea
             });
             request += builder.createCutPaperElement({
                 feed: true
