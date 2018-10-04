@@ -59,18 +59,18 @@
                 papertype: papertype
             });
 
-//            trader.onReceive = function(response) {
-//                alert(response.responseText);
-//            }
-//            trader.onError = function(response) {
-//                alert(response.responseText);
-//            }
+            trader.onReceive = function(response) {
+                alert(response.responseText);
+            }
+            trader.onError = function(response) {
+                alert(response.responseText);
+            }
             console.log(request);
             trader.sendMessage({
                 request: request
             });
 
-            setTimeout(location.reload(), 2000);
+            setTimeout(location.reload(), 4000);
             
 
         }
