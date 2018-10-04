@@ -25,8 +25,11 @@
             //            childWindow.close();
 
 
-            var textArea = document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>');
-            console.log(textArea);
+            var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
+
+            var cleanTextArea = textArea.replace(/<br>/g, "n\\");
+            
+            console.log(cleanTextArea);
 
 
             var builder = new StarWebPrintBuilder();
@@ -57,7 +60,7 @@
             });
 
             trader.onReceive = function(response) {
-                alert(response.responseText);
+//                alert(response.responseText);
             }
             trader.onError = function(response) {
                 alert(response.responseText);
@@ -68,7 +71,7 @@
             });
 
             //            setTimeout(check, 1000);
-            //            location.reload();
+            location.reload();
 
         }
     </script>
