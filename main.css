@@ -16,8 +16,8 @@ body {
 textarea[type=text],
 select {
     outline: none;
-    width: 100%;
-    height: 790px;
+    width: 400px;
+    height: 800px;
     padding: 16px 20px;
 /*    margin: 8px 0;*/
     margin-left: auto;
@@ -34,8 +34,8 @@ select {
 }
 
 input[type=submit] {
-    width: 100%;
-    height: 50px;
+    width: 400px;
+    height: 60px;
     background-color: #663300;
     color: white;
     padding: 20px;
