@@ -46,7 +46,7 @@
                 position: 'left'
             });
             request += builder.createTextElement({
-                data: textArea
+                data: cleanTextArea
             });
             request += builder.createCutPaperElement({
                 feed: true
@@ -59,12 +59,12 @@
                 papertype: papertype
             });
 
-            trader.onReceive = function(response) {
+//            trader.onReceive = function(response) {
+////                alert(response.responseText);
+//            }
+//            trader.onError = function(response) {
 //                alert(response.responseText);
-            }
-            trader.onError = function(response) {
-                alert(response.responseText);
-            }
+//            }
             console.log(request);
             trader.sendMessage({
                 request: request
