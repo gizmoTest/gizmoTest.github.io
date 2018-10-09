@@ -47,6 +47,10 @@
             request += builder.createAlignmentElement({
                 position: 'left'
             });
+            var newLine = "\\n";
+            request += builder.createTextElement({
+                data: newLine.repeat(7);
+            });
             request += builder.createTextElement({
                 data: cleanTextArea
             });
