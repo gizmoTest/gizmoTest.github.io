@@ -16,22 +16,36 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('textarea[data-limit-rows=true]')
-                .on('keypress', function(event) {
-                    var textarea = $(this),
-                        text = textarea.val(),
-                        numberOfLines = (text.match(/\n/g) || []).length + 1,
-                        maxRows = parseInt(textarea.attr('rows'));
+            var textArea = $('#targetTextArea');
+            var maxRows = textArea.attr('rows');
+            var maxChars = textArea.attr('cols');
+            textArea.keypress(function(e) {
+                var text = textArea.val();
+                var lines = text.split('\n');
+                if (e.keyCode == 13) {
+                    return lines.length < maxRows;
+                } else { //Should check for backspace/del/etc.
+                    var caret = textArea.get(0).selectionStart;
+                    console.log(caret);
 
-                    if (event.which === 13 && numberOfLines === maxRows) {
-                        return false;
-                    }
-                });
-            $('#targetTextArea').bind("cut copy paste", function(e) {
-                e.preventDefault();
+                    var line = 0;
+                    var charCount = 0;
+                    $.each(lines, function(i, e) {
+                        charCount += e.length;
+                        if (caret <= charCount) {
+                            line = i;
+                            return false;
+                        }
+                        //\n count for 1 char;
+                        charCount += 1;
+                    });
+
+                    var theLine = lines[line];
+                    return theLine.length < maxChars;
+                }
             });
-        });
 
+        });
 
 
 
@@ -144,9 +158,9 @@
 
     <div class="myelement1">
 
-        <textarea data-limit-rows="true" cols="24" rows="28" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
+        <textarea data-limit-rows="true" cols="24" rows="28" maxlength="672" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
         <input type="submit" onclick="print()" value="Print Text" />
-        <!--maxlength="672"-->
+
     </div>
 
 </body>
