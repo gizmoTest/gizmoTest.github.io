@@ -13,7 +13,30 @@
     <link rel="stylesheet" href="main.css">
     <script type='text/javascript' src='js/StarWebPrintBuilder.js'></script>
     <script type='text/javascript' src='js/StarWebPrintTrader.js'></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function() {
+            $('textarea[data-limit-rows=true]')
+                .on('keypress', function(event) {
+                    var textarea = $(this),
+                        text = textarea.val(),
+                        numberOfLines = (text.match(/\n/g) || []).length + 1,
+                        maxRows = parseInt(textarea.attr('rows'));
+
+                    if (event.which === 13 && numberOfLines === maxRows) {
+                        return false;
+                    }
+                });
+            $('#targetTextArea').bind("cut copy paste", function(e) {
+                e.preventDefault();
+            });
+        });
+
+
+
+
+
+
         function print() {
 
             var textArea = String(document.getElementById('targetTextArea').value.replace(/\n/gi, '<br>'));
@@ -76,7 +99,7 @@
 
         }
 
-//        str = wordWrap(str, 40);
+        //        str = wordWrap(str, 40);
 
         function wordWrap(str, maxWidth) {
             var newLineStr = "\n";
@@ -110,6 +133,7 @@
             var white = new RegExp(/^\s$/);
             return white.test(x.charAt(0));
         };
+
     </script>
 
 </head>
@@ -120,9 +144,9 @@
 
     <div class="myelement1">
 
-        <textarea maxlength="672" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
+        <textarea data-limit-rows="true" cols="24" rows="28" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
         <input type="submit" onclick="print()" value="Print Text" />
-
+        <!--maxlength="672"-->
     </div>
 
 </body>
