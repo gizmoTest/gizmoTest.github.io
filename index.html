@@ -72,7 +72,7 @@
 	}).keypress(function(e){
 		if (e.keyCode == enterKey){
      var lineCount = $(this).val().split('\n').length;
-     if(lineCount == maxEnterCount){
+     if(lineCount >= maxEnterCount){
      	return false;
      }
     }  
