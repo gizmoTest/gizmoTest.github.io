@@ -72,13 +72,15 @@
   });
 
 	$('textarea').keydown(function(e) {
+		console.log("linecount" + str(lineCount));
+		console.log("maxRows" + str(maxRows));
 		if (e.keyCode != 8 && lineCount >= maxRows){return false;}
 		
 		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
 	}).keypress(function(e){
 		if (e.keyCode == enterKey){
      
-	console.log(lineCount);
+	
      if(lineCount >= maxEnterCount){
      	return false;
 	     
