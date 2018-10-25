@@ -66,6 +66,7 @@
   });
 
 	$('textarea').keydown(function(e) {
+		lineCount = $(this).val().split('\n').length;
 		console.log("lineCount "+ lineCount);
 		if (e.keyCode != 8 && lineCount >=30){
 			return false;
