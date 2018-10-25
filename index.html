@@ -55,6 +55,7 @@
         cKey = 67,
         enterKey = 13;
   var maxEnterCount = 30;
+	  var lineCount = 0;
 
 	$(document).keydown(function(e) {
 		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
@@ -65,10 +66,13 @@
   });
 
 	$('textarea').keydown(function(e) {
+		if (e.keyCode != 8 && lineCount >=30){
+			return false;
+		}
 		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
 	}).keypress(function(e){
 		if (e.keyCode == enterKey){
-     var lineCount = $(this).val().split('\n').length;
+     lineCount = $(this).val().split('\n').length;
      if(lineCount == maxEnterCount){
      	return false;
      }
