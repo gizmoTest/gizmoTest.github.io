@@ -69,7 +69,7 @@
 
 	$('textarea').keydown(function(e) {
 		var numNewlines = ($(this).val().match(new RegExp("\n", "g")) || []).length;
-		lineCount = numNewlines + $(this).val().split('').length/maxRows;
+		lineCount = numNewlines + $(this).val().replaceAll("\n"," ").split('').length/maxRows;
 		console.log("lineCount "+ lineCount);
 		if (e.keyCode != 8 && lineCount >=30){
 			return false;
