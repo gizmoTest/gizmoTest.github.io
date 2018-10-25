@@ -15,37 +15,60 @@
     <script type='text/javascript' src='js/StarWebPrintTrader.js'></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            var textArea = $('#targetTextArea');
-            var maxRows = textArea.attr('rows');
-            var maxChars = textArea.attr('cols');
-            textArea.keypress(function(e) {
-                var text = textArea.val();
-                var lines = text.split('\n');
-                if (e.keyCode == 13) {
-                    return lines.length < maxRows;
-                } else { //Should check for backspace/del/etc.
-                    var caret = textArea.get(0).selectionStart;
-                    console.log(caret);
+//         $(document).ready(function() {
+//             var textArea = $('#targetTextArea');
+//             var maxRows = textArea.attr('rows');
+//             var maxChars = textArea.attr('cols');
+//             textArea.keypress(function(e) {
+//                 var text = textArea.val();
+//                 var lines = text.split('\n');
+//                 if (e.keyCode == 13) {
+//                     return lines.length < maxRows;
+//                 } else { //Should check for backspace/del/etc.
+//                     var caret = textArea.get(0).selectionStart;
+//                     console.log(caret);
 
-                    var line = 0;
-                    var charCount = 0;
-                    $.each(lines, function(i, e) {
-                        charCount += e.length;
-                        if (caret <= charCount) {
-                            line = i;
-                            return false;
-                        }
-                        //\n count for 1 char;
-                        charCount += 1;
-                    });
+//                     var line = 0;
+//                     var charCount = 0;
+//                     $.each(lines, function(i, e) {
+//                         charCount += e.length;
+//                         if (caret <= charCount) {
+//                             line = i;
+//                             return false;
+//                         }
+//                         //\n count for 1 char;
+//                         charCount += 1;
+//                     });
 
-                    var theLine = lines[line];
-                    return theLine.length < maxChars;
-                }
-            });
+//                     var theLine = lines[line];
+//                     return theLine.length < maxChars;
+//                 }
+//             });
 
-        });
+//         });
+        
+         $(document).ready(function() {
+	var ctrlDown = false,
+        ctrlKey = 17,
+        cmdKey = 91,
+        vKey = 86,
+        cKey = 67,
+        enterKey = 13;
+
+	$(document).keydown(function(e) {
+		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+	}).keyup(function(e) {
+		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+	}).on('contextmenu', function(e){
+  	e.preventDefault();
+  });
+
+	$('textarea').keydown(function(e) {
+		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+	}).keypress(function(e){
+		if (e.keyCode == enterKey)  return false;
+	});
+});
 
 
 
