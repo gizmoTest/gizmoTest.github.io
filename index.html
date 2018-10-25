@@ -72,8 +72,8 @@
   });
 
 	$('textarea').keydown(function(e) {
-		console.log("linecount" + str(lineCount));
-		console.log("maxRows" + str(maxRows));
+		console.log("linecount" + lineCount);
+		console.log("maxRows"+ maxRows);
 		if (e.keyCode != 8 && lineCount >= maxRows){return false;}
 		
 		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
