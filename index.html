@@ -59,14 +59,11 @@
         enterKey = 13;
   var maxEnterCount = maxRows;
 	 var lineCount = $(this).val().split('\n').length;
-	 if (lineCount >= maxRows){
-$('#targetTextArea').prop('disabled', true);
-	     }
-	 else{ $('#targetTextArea').prop('disabled', false);
-	 }
 
 
-	$(document).keydown(function(e) {
+
+	$(document).keydown(function(e) {	
+		
 		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
 	}).keyup(function(e) {
 		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
@@ -75,6 +72,8 @@ $('#targetTextArea').prop('disabled', true);
   });
 
 	$('textarea').keydown(function(e) {
+		if (e.keyCode != 8 && lineCount >= maxRows){return false;}
+		
 		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
 	}).keypress(function(e){
 		if (e.keyCode == enterKey){
