@@ -15,77 +15,78 @@
     <script type='text/javascript' src='js/StarWebPrintTrader.js'></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-//         $(document).ready(function() {
-//             var textArea = $('#targetTextArea');
-//             var maxRows = textArea.attr('rows');
-//             var maxChars = textArea.attr('cols');
-//             textArea.keypress(function(e) {
-//                 var text = textArea.val();
-//                 var lines = text.split('\n');
-//                 if (e.keyCode == 13) {
-//                     return lines.length < maxRows;
-//                 } else { //Should check for backspace/del/etc.
-//                     var caret = textArea.get(0).selectionStart;
-//                     console.log(caret);
+        //        $(document).ready(function() {
+        //            var textArea = $('#targetTextArea');
+        //            var maxRows = textArea.attr('rows');
+        //            var maxChars = textArea.attr('cols');
+        //            textArea.keypress(function(e) {
+        //                var text = textArea.val();
+        //                var lines = text.split('\n');
+        //                if (e.keyCode == 13) {
+        //                    return lines.length < maxRows;
+        //                } else { //Should check for backspace/del/etc.
+        //                    var caret = textArea.get(0).selectionStart;
+        //                    console.log(caret);
+        //
+        //                    var line = 0;
+        //                    var charCount = 0;
+        //                    $.each(lines, function(i, e) {
+        //                        charCount += e.length;
+        //                        if (caret <= charCount) {
+        //                            line = i;
+        //                            return false;
+        //                        }
+        //                        //\n count for 1 char;
+        //                        charCount += 1;
+        //                    });
+        //
+        //                    var theLine = lines[line];
+        //                    return theLine.length < maxChars;
+        //                }
+        //            });
+        //
+        //        });
 
-//                     var line = 0;
-//                     var charCount = 0;
-//                     $.each(lines, function(i, e) {
-//                         charCount += e.length;
-//                         if (caret <= charCount) {
-//                             line = i;
-//                             return false;
-//                         }
-//                         //\n count for 1 char;
-//                         charCount += 1;
-//                     });
-
-//                     var theLine = lines[line];
-//                     return theLine.length < maxChars;
-//                 }
-//             });
-
-//         });
-        
-  $(document).ready(function() {
-	  var textArea = $('#targetTextArea');
-	  var maxRows = textArea.attr('rows');
-	var ctrlDown = false,
-        ctrlKey = 17,
-        cmdKey = 91,
-        vKey = 86,
-        cKey = 67,
-        enterKey = 13;
-  var maxEnterCount = 30;
-	  var lineCount = 0;
-
-	$(document).keydown(function(e) {
-		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
-	}).keyup(function(e) {
-		if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
-	}).on('contextmenu', function(e){
-  	e.preventDefault();
-  });
-
-	$('textarea').keydown(function(e) {
-		var numNewlines = ($(this).val().match(new RegExp("\n", "g")) || []).length;
-		lineCount = numNewlines + $(this).val().replace("\n","").split('').length/maxRows;
-		console.log("lineCount "+ lineCount);
-		if (e.keyCode != 8 && lineCount >=30){
-			return false;
-		}
-		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
-	}).keypress(function(e){
-		if (e.keyCode == enterKey){
-     lineCount = $(this).val().split('\n').length;
-     if(lineCount == maxEnterCount){
-     	return false;
-     }
-    }  
-	});
-});
-
-
+        $(document).ready(function() {
+            var textArea = $('#targetTextArea');
+            var maxRows = textArea.attr('rows');
+            var ctrlDown = false,
+                ctrlKey = 17,
+                cmdKey = 91,
+                vKey = 86,
+                cKey = 67,
+                enterKey = 13;
+            var maxEnterCount = 30;
+            var lineCount = 0;
+            $(document).keydown(function(e) {
+                if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = true;
+            }).keyup(function(e) {
+                if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+            }).on('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            $('textarea').keydown(function(e) {
+                
+                
+                lineCount = (wordWrap($(this).val(), 24).match(new RegExp("\n", "g")) || []).length;
+                console.log("lineCount " + lineCount);
+                
+                var allowed = [8,46,37,38,39,40]
+                if (!allowed.includes(e.keyCode) && lineCount >= 28) {
+                    return false;
+                }
+                
+                
+                if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
+            }).keypress(function(e) {
+//                if (e.keyCode == enterKey) {
+//                    lineCount = $(this).val().split('\n').length;
+//                    if (lineCount == maxEnterCount) {
+//                        return false;
+//                    }
+//                }
+            });
+        });
 
 
 
@@ -140,7 +141,7 @@
             trader.onError = function(response) {
                 alert(response.responseText);
             }
-            console.log(request);
+//            console.log(request);
             trader.sendMessage({
                 request: request
             });
@@ -192,11 +193,11 @@
 
 <body>
 
-    <h1 align="center">What's Your Story?</h1>
+    <h1 align="center" href="#" onClick="window.location.reload();return false;">What's Your Story?</h1>
 
     <div class="myelement1">
 
-        <textarea data-limit-rows="true" cols="24" rows="30" maxlength="672" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
+        <textarea data-limit-rows="true" cols="24" rows="31" maxlength="672" type="text" name="textarea" wrap="wrap" id="targetTextArea" rows="10" cols="30" placeholder="Tell Your Story..."></textarea>
         <input type="submit" onclick="print()" value="Print Text" />
 
     </div>
