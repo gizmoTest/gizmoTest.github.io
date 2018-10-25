@@ -50,6 +50,7 @@
  $(document).ready(function() {
 	 var textArea = $('#targetTextArea');
 	 var maxRows = textArea.attr('rows');
+	 var maxCols = textArea.attr('cols');
 	var ctrlDown = false,
         ctrlKey = 17,
         cmdKey = 91,
@@ -57,6 +58,12 @@
         cKey = 67,
         enterKey = 13;
   var maxEnterCount = maxRows;
+	 var lineCount = $(this).val().split('\n').length;
+	 if (lineCount >= maxRows){
+$('#targetTextArea').prop('disabled', true);
+	     }
+	 else{ $('#targetTextArea').prop('disabled', false);
+	 }
 
 
 	$(document).keydown(function(e) {
@@ -71,11 +78,11 @@
 		if (ctrlDown && (e.keyCode == vKey || e.keyCode == cKey)) return false;
 	}).keypress(function(e){
 		if (e.keyCode == enterKey){
-     var lineCount = $(this).val().split('\n').length;
+     
 	console.log(lineCount);
      if(lineCount >= maxEnterCount){
      	return false;
-	     $('textarea').prop('disabled', true);
+	     
      }
 			
     }  
