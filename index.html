@@ -48,6 +48,7 @@
 //         });
         
   $(document).ready(function() {
+	  var maxRows = textArea.attr('rows');
 	var ctrlDown = false,
         ctrlKey = 17,
         cmdKey = 91,
@@ -66,7 +67,8 @@
   });
 
 	$('textarea').keydown(function(e) {
-		lineCount = $(this).val().split('\n').length;
+		var numNewlines = ($(this).val().match(new RegExp("\n", "g")) || []).length;
+		lineCount = numNewlines + $(this).val().split('').length/maxRows;
 		console.log("lineCount "+ lineCount);
 		if (e.keyCode != 8 && lineCount >=30){
 			return false;
